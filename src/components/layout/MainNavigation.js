@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-import { ALL_MEETUP_PAGE, FAVORITES_PAGE, NEW_MEETUP_PAGE } from "./../../utils/constants";
+import { ALL_MEETUP_PAGE, FAVORITES_PAGE, NEW_MEETUP_PAGE, ROUTES } from "./../../utils/constants";
 import classes from "./MainNavigation.module.css";
 
 export default function MainNavigation({ setPage }) {
@@ -28,6 +28,12 @@ export default function MainNavigation({ setPage }) {
     showHeader ? classes.visible : classes.hidden
   ].join(" ")
 
+  const handleLink = (event, page, url) => {
+    event.preventDefault();
+    setPage(page);
+    window.history.pushState({}, "", url);
+  }
+
 
   return (
     <header 
@@ -38,18 +44,27 @@ export default function MainNavigation({ setPage }) {
       <nav>
         <ul>
           <li>
-            <a href="#" onClick={() => setPage(ALL_MEETUP_PAGE)}>
+            <a 
+              href={ROUTES.ALL} 
+              onClick={(event) => handleLink(event, ALL_MEETUP_PAGE, ROUTES.ALL)}
+            >
               All Meetups
             </a>
           </li>
 
           <li>
-            <a href="#" onClick={() => setPage(NEW_MEETUP_PAGE)}>
+            <a 
+              href={ROUTES.NEW} 
+              onClick={(event) => handleLink(event, NEW_MEETUP_PAGE, ROUTES.NEW)}
+            >
               Add New Meetup
             </a>
           </li>
           <li>
-            <a href="#" onClick={() => setPage(FAVORITES_PAGE)}>
+            <a 
+              href={ROUTES.FAVORITES} 
+              onClick={(event) => handleLink(event, FAVORITES_PAGE, ROUTES.FAVORITES)}
+            >
               My Favorites
               <span className={classes.badge}>{0}</span>
             </a>
