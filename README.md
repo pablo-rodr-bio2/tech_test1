@@ -11,3 +11,6 @@ I implemented a rudimentary navigation using the already implemented `useState` 
 
 ## Favorite logic button
 I moved the data fetching to `<AllMeetupsPage/>`, so `<MeetUpItem />` only receives data. Then, in `<App />`, I added a new state, `favorites`, where the favorite pages will be saved, and its handler passed to each Card. Also, the header will have as a prop the favorites length to show the number of favorite pages.
+
+# Exercise 1
+It is implemented in `ejercicio_1.js`
