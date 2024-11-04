@@ -1,27 +1,9 @@
-import { useState, useRef, useEffect } from "react";
-
 import { ALL_MEETUP_PAGE, FAVORITES_PAGE, NEW_MEETUP_PAGE, ROUTES } from "./../../utils/constants";
 import classes from "./MainNavigation.module.css";
+import { useHideHeaderOnScroll } from "../../util-hooks/useHideHeaderOnScroll";
 
 export default function MainNavigation({ setPage }) {
-  const [showHeader, setShowHeader] = useState(true);
-  const lastScroll = useRef(window.scrollY)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScroll = window.scrollY;
-    
-      setShowHeader(currentScroll > lastScroll.current);
-
-      lastScroll.current = currentScroll;
-    }
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    }
-  }, []);
+  const showHeader = useHideHeaderOnScroll();
 
   const headerStyling = [
     classes.header,
@@ -33,8 +15,7 @@ export default function MainNavigation({ setPage }) {
     setPage(page);
     window.history.pushState({}, "", url);
   }
-
-
+  
   return (
     <header 
       className={headerStyling}
