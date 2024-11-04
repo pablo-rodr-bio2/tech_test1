@@ -12,17 +12,23 @@ function App() {
   const [page, setPage] = useState(ALL_MEETUP_PAGE);
   const [favorites, setFavorites] = useState([]);
 
+  const onFavoriteHandler = (favorite) => {
+    setFavorites((prev) => {
+      return [...prev, favorite];
+    });
+  };
+
   function getCurrentPageComponent() {
-    let currentPageComponent = <AllMeetupsPage />;
+    let currentPageComponent = <AllMeetupsPage handleFavorite={onFavoriteHandler} />;
     switch (page) {
       case FAVORITES_PAGE:
-        currentPageComponent = <FavoritesPage />;
+        currentPageComponent = <FavoritesPage favorites={favorites}/>;
         break;
       case NEW_MEETUP_PAGE:
         currentPageComponent = <NewMeetupsPage />;
         break;
       default:
-        currentPageComponent = <AllMeetupsPage />;
+        currentPageComponent = <AllMeetupsPage handleFavorite={onFavoriteHandler} />;
     }
 
     return currentPageComponent;
@@ -30,7 +36,7 @@ function App() {
 
   return (
     <div data-test="app">
-      <MainNavigation setPage={setPage} />
+      <MainNavigation setPage={setPage} favoritesNumber={favorites.length}/>
       <Layout>{getCurrentPageComponent()}</Layout>
     </div>
   );

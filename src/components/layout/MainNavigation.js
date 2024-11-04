@@ -2,7 +2,7 @@ import { ALL_MEETUP_PAGE, FAVORITES_PAGE, NEW_MEETUP_PAGE, ROUTES } from "./../.
 import classes from "./MainNavigation.module.css";
 import { useHideHeaderOnScroll } from "../../util-hooks/useHideHeaderOnScroll";
 
-export default function MainNavigation({ setPage }) {
+export default function MainNavigation({ setPage, favoritesNumber }) {
   const showHeader = useHideHeaderOnScroll();
 
   const headerStyling = [
@@ -47,7 +47,7 @@ export default function MainNavigation({ setPage }) {
               onClick={(event) => handleLink(event, FAVORITES_PAGE, ROUTES.FAVORITES)}
             >
               My Favorites
-              <span className={classes.badge}>{0}</span>
+              <span className={classes.badge}>{favoritesNumber}</span>
             </a>
           </li>
         </ul>

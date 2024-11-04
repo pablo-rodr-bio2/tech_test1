@@ -3,7 +3,7 @@ import classes from "./../components/meetups/MeetupList.module.css";
 import { useFetch } from "../util-hooks/useFetch";
 
 
-export default function AllMeetupsPage() {
+export default function AllMeetupsPage({ handleFavorite }) {
   const { data } = useFetch({
     url: "/data.json",
   });
@@ -15,7 +15,7 @@ export default function AllMeetupsPage() {
       <h1>All Meetups</h1>
       <ul className={classes.list}>
         {data.map((item) => (
-          <MeetupItem key={item.id} item={item} />
+          <MeetupItem key={item.id} item={item} handleFavorite={handleFavorite} />
         ))}
       </ul>
     </section>
