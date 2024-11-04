@@ -10,6 +10,7 @@ import Layout from "./components/layout/Layout";
 
 function App() {
   const [page, setPage] = useState(ALL_MEETUP_PAGE);
+  const [favorites, setFavorites] = useState([]);
 
   function getCurrentPageComponent() {
     let currentPageComponent = <AllMeetupsPage />;
