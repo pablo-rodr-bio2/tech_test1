@@ -8,4 +8,6 @@ const ROUTES = {
   FAVORITES : '/favorites',
 }
 
-export { ALL_MEETUP_PAGE, FAVORITES_PAGE, NEW_MEETUP_PAGE, ROUTES };
+const DB_URL = 'http://localhost:3001/meetups';
+
+export { ALL_MEETUP_PAGE, FAVORITES_PAGE, NEW_MEETUP_PAGE, ROUTES, DB_URL };

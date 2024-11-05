@@ -1,12 +1,9 @@
 import MeetupItem from "../components/meetups/MeetupItem";
+import { useMeetupQuery } from "../util-hooks/useMeetupQuery";
 import classes from "./../components/meetups/MeetupList.module.css";
-import { useFetch } from "../util-hooks/useFetch";
-
 
 export default function AllMeetupsPage({ handleFavorite }) {
-  const { data } = useFetch({
-    url: "/data.json",
-  });
+  const { data } = useMeetupQuery();
 
   if (!data) return <p>Loading...</p>;
 

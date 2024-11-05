@@ -1,9 +1,23 @@
+import { useAddMeetup } from "../../util-hooks/useAddMeetupMutation";
 import Card from "../ui/Card";
 import classes from "./NewMeetupForm.module.css";
 
 export default function NewMeetupForm() {
+  const { mutate } = useAddMeetup();
+
   function submitHandler(event) {
     event.preventDefault();
+    
+    const form = event.target;
+
+    const newMeetup = {
+      title: form.title.value,
+      image: form.image.value,
+      address: form.address.value,
+      description: form.description.value,
+    }
+
+    mutate(newMeetup);    
   }
 
   return (

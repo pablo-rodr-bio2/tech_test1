@@ -1,9 +1,9 @@
-import { useFetch } from "../util-hooks/useFetch";
+import { useMeetupQuery } from "../util-hooks/useMeetupQuery";
 import AllMeetupsPage from "./AllMeetupsPage";
 import MeetupItem from "../components/meetups/MeetupItem";
 import { shallow } from "enzyme";
 
-jest.mock("../util-hooks/useFetch")
+jest.mock("../util-hooks/useMeetupQuery");
 
 const mockItem = {
   id: "m1",
@@ -16,7 +16,7 @@ const mockItem = {
 describe("AllMeetupsPage", () => {
   describe("when the data is not loaded", () => {
     test('it renders the loading message', () => {
-      useFetch.mockReturnValue({ data: null })
+      useMeetupQuery.mockReturnValue({ data: null })
 
       const wrapper = shallow(<AllMeetupsPage />);
       expect(wrapper.text()).toBe('Loading...')
@@ -25,7 +25,7 @@ describe("AllMeetupsPage", () => {
 
   describe("when the data is loaded", () => {
     test('it renders the list of meetups', () => {
-      useFetch.mockReturnValue({
+      useMeetupQuery.mockReturnValue({
         data: [
           mockItem
         ]
