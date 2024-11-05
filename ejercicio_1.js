@@ -10,31 +10,77 @@
   * exclusivos entre sí, yo quitaría el else if
 */
 
-class RegisteredUser{
+// class RegisteredUser{
 
+//   constructor(services = []) {
+//     this.services = services;
+//   }
+
+//   getTotal(){
+//     let total = 0;
+
+//     this.services.forEach(service => {
+//       let multimediaContent = service.getMultimediaContent();
+
+//       if(service instanceof StreamingService) {
+//         total += multimediaContent.streamingPrice;
+//       }
+      
+//       if(service instanceof DownloadService) {
+//         total += multimediaContent.downloadPrice;
+//       }
+
+//       if(multimediaContent instanceof PremiumContent) {
+//         total += multimediaContent.additionalFee;
+//       }
+//     })
+
+//     return total
+//   }
+// }
+
+// Aplicación de principios SOLID:
+// 1. SRP: La clase RegisteredUser se encarga de demasiadas ConstantSourceNode, realizando el cálculo de
+// los precios de todos los servicios y de los contenidos multimedia. Sería mejor separar la lógica de 
+// cálculo de precios en sus propias clases
+// 2. OCP: cada vez que se añada un tipo de servicio habría que modificar la clase RegisteredUser, lo que
+// violaría el principio de abierto a extender pero cerrado a modificar. La solución sería parecida al 
+//  primer punto, crear clases para cada servicio, que calculen ellas el precio y lo devuelvan a RegisteredUser
+
+
+class RegisteredUser {
   constructor(services = []) {
     this.services = services;
   }
 
-  getTotal(){
-    let total = 0;
+  getTotal() {
+    const calculator = new ServicePricingCalculator();
+    return calculator.calculateTotal(this.services);
+  }
+}
 
-    this.services.forEach(service => {
-      let multimediaContent = service.getMultimediaContent();
+class ServicePricingCalculator {
+  calculateTotal(services) {
+    return services.reduce((total, service) => total + service.getPrice(), 0);
+  }
+}
 
-      if(service instanceof StreamingService) {
-        total += multimediaContent.streamingPrice;
-      }
-      
-      if(service instanceof DownloadService) {
-        total += multimediaContent.downloadPrice;
-      }
+class StreamingService {
+  constructor(multimediaContent) {
+    this.multimediaContent = multimediaContent;
+  }
 
-      if(multimediaContent instanceof PremiumContent) {
-        total += multimediaContent.additionalFee;
-      }
-    })
+  getPrice() {
+    return this.multimediaContent.streamingPrice + this.multimediaContent.getAdditionalFee();
+  }
+}
 
-    return total
+class DownloadService {
+  constructor(multimediaContent) {
+    this.multimediaContent = multimediaContent;
+  }
+
+  getPrice() {
+    return this.multimediaContent.downloadPrice + this.multimediaContent.getAdditionalFee();
   }
 }
